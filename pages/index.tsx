@@ -1,11 +1,12 @@
-import type { NextPage } from 'next'
+import { Good, getDataGood } from '../src/service/data/getDataGood'
+import { useEffect, useState } from 'react'
+
 import Head from 'next/head'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import type { NextPage } from 'next'
 import RectangleChip from '../src/service/component/chip/RectangleChip'
 import RoundChip from '../src/service/component/chip/RoundChip'
 import TopBar from '../src/service/component/navigator/TopBar'
-import { getDataGood, Good } from '../src/service/data/getDataGood'
 
 const Home: NextPage = () => {
   const [dataGoods, setDataGoods] = useState<Good[] | undefined>()
@@ -18,7 +19,7 @@ const Home: NextPage = () => {
     loadDataGood()
   }, [])
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
