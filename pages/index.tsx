@@ -1,6 +1,7 @@
 import { Good, getDataGood } from '../src/service/data/getDataGood'
 import { useEffect, useState } from 'react'
 
+import ChipGroup from '../src/service/component/chip/ChipGroup'
 import Head from 'next/head'
 import Image from 'next/image'
 import type { NextPage } from 'next'
@@ -26,6 +27,11 @@ const Home: NextPage = () => {
       </Head>
       <TopBar />
       <main className="flex flex-col items-center justify-center flex-1 w-full px-20 text-center">
+        <ChipGroup>
+          <RoundChip text="검색" />
+          <RoundChip text="검색" isChecked={true} />
+          <RoundChip text="세일상품" isChecked={true} />
+        </ChipGroup>
         <h1 className="text-6xl font-bold">
           Welcome to{' '}
           <a className="text-blue-600" href="https://nextjs.org">
