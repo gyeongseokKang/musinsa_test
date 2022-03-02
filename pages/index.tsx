@@ -1,16 +1,16 @@
 import { Good, getDataGood } from "../src/service/data/getDataGood";
 import { useEffect, useState } from "react";
+
+import FilterLayout from "../src/component/filter/FilterLayout";
+import FilterSearcher from "../src/component/filter/FilterSearcher";
+import FilterSelecter from "../src/component/filter/FilterSelecter";
+import GoodCard from "../src/component/card/GoodCard";
 import Head from "next/head";
 import type { NextPage } from "next";
-import RectangleChip from "../src/service/component/chip/RectangleChip";
-import RoundChip from "../src/service/component/chip/RoundChip";
-import TopBar from "../src/service/component/navigator/TopBar";
-import FilterSelecter from "../src/service/component/filter/FilterSelecter";
-import FilterLayout from "../src/service/component/filter/FilterLayout";
-import SearchChip from "../src/service/component/chip/SearchChip";
-import { useRecoilState } from "recoil";
+import SearchChip from "../src/component/chip/SearchChip";
+import TopBar from "../src/component/navigator/TopBar";
 import { filterQueryState } from "../src/store/FilterStore";
-import FilterSearcher from "../src/service/component/filter/FilterSearcher";
+import { useRecoilState } from "recoil";
 
 const Home: NextPage = () => {
   const [dataGoods, setDataGoods] = useState<Good[] | undefined>();
@@ -51,20 +51,29 @@ interface HomeVAProp {
   updateFilterQuery: (query: string) => void;
 }
 
-export const HomeView = ({ isSearch, dataGoods, filterQuery, toggleSearch, updateFilterQuery }: HomeVAProp) => {
+export const HomeView = ({
+  isSearch,
+  dataGoods,
+  filterQuery,
+  toggleSearch,
+  updateFilterQuery,
+}: HomeVAProp) => {
   if (dataGoods === undefined) return <div>loading!!@</div>;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex min-h-screen flex-col items-center justify-center">
       <Head>
         <title>무신사 스토어</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopBar />
-      <main className="flex flex-col items-center justify-start flex-1 w-full h-full px-20 text-center">
+      <main className="flex h-full w-full flex-1 flex-col items-center justify-start px-20 text-center">
         <div className="flex items-center justify-center">
           <div onClick={toggleSearch}>
-            <SearchChip isChecked={filterQuery.length > 0} isFocused={isSearch} />
+            <SearchChip
+              isChecked={filterQuery.length > 0}
+              isFocused={isSearch}
+            />
           </div>
           <FilterSelecter />
         </div>
@@ -73,12 +82,17 @@ export const HomeView = ({ isSearch, dataGoods, filterQuery, toggleSearch, updat
             query={filterQuery}
             updateQuery={updateFilterQuery}
             autoCompleteList={dataGoods.flat().map((item) => {
-              return { name: item.goodsName, brand: item.brandName, code: item.goodsNo };
+              return {
+                name: item.goodsName,
+                brand: item.brandName,
+                code: item.goodsNo,
+              };
             })}
           />
         ) : (
           <FilterLayout />
         )}
+        <GoodCard good={dataGoods[0]} />
       </main>
     </div>
   );
