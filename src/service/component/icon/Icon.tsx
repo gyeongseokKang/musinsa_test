@@ -31,7 +31,13 @@ export const Icon = ({
         objectFit: 'contain',
       }}
     >
-      <Image src={url} width={width} height={height} priority={priority} />
+      <Image
+        src={url}
+        width={width}
+        height={height}
+        priority={priority}
+        layout={'fixed'}
+      />
     </div>
   )
 }
