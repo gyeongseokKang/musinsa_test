@@ -1,6 +1,9 @@
 import { Good, getDataGood } from "../src/service/data/getDataGood";
+import { filterQueryState, filterState } from "../src/store/FilterStore";
 import { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 
+import FilterGoods from "../src/component/filter/FilterGoods";
 import FilterLayout from "../src/component/filter/FilterLayout";
 import FilterSearcher from "../src/component/filter/FilterSearcher";
 import FilterSelecter from "../src/component/filter/FilterSelecter";
@@ -9,8 +12,7 @@ import Head from "next/head";
 import type { NextPage } from "next";
 import SearchChip from "../src/component/chip/SearchChip";
 import TopBar from "../src/component/navigator/TopBar";
-import { filterQueryState } from "../src/store/FilterStore";
-import { useRecoilState } from "recoil";
+import produce from "immer";
 
 const Home: NextPage = () => {
   const [dataGoods, setDataGoods] = useState<Good[] | undefined>();
@@ -20,7 +22,6 @@ const Home: NextPage = () => {
     const loadDataGood = async () => {
       const response = await getDataGood();
       setDataGoods(response);
-      console.log(response);
     };
     loadDataGood();
   }, []);
@@ -67,7 +68,7 @@ export const HomeView = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopBar />
-      <main className="flex h-full w-full flex-1 flex-col items-center justify-start px-20 text-center">
+      <main className="flex h-full w-full flex-1 flex-col items-center justify-start text-center">
         <div className="flex items-center justify-center">
           <div onClick={toggleSearch}>
             <SearchChip
@@ -92,7 +93,7 @@ export const HomeView = ({
         ) : (
           <FilterLayout />
         )}
-        <GoodCard good={dataGoods[0]} />
+        <FilterGoods goods={dataGoods.flat()} />
       </main>
     </div>
   );

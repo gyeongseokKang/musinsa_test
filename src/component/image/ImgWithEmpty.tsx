@@ -10,7 +10,7 @@ interface ImgWithEmptyProp {
 const ImgWithEmpty = ({
   url = "",
   altText,
-  className,
+  className = "",
   onClick,
 }: ImgWithEmptyProp) => {
   return (

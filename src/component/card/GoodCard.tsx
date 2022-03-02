@@ -1,32 +1,56 @@
 import { Good } from "../../service/data/getDataGood";
 import ImgWithEmpty from "../image/ImgWithEmpty";
 import React from "react";
+import { getNumberWithComma } from "../../utils/getNumberWithComma";
+import { useRouter } from "next/router";
 
 interface GoodCardProp {
   good: Good;
   className?: string;
 }
 
-const GoodCard = ({ good, className }: GoodCardProp) => {
+const GoodCard = ({ good, className = "" }: GoodCardProp) => {
+  const router = useRouter();
+
+  const goGoodLink = () => {
+    router.push(good.linkUrl);
+  };
   return (
     <div
-      className={`flex h-[366px] w-[188px] flex-col items-center justify-center ${className}`}
+      className={`h-[366px] w-[188px] cursor-pointer ${className}`}
+      onClick={goGoodLink}
     >
-      <ImgWithEmpty url={good.imageUrl} />
-      <div className="flex">단독</div>
-      <div className="p-2">
-        <div>{good.brandName}</div>
-        <div className="font-bold">
-          상품명 상품명 상품명 두 줄까지 입력 가능합니다.
+      <div className="h-[240px]">
+        <ImgWithEmpty className="h-[226px] w-[188px]" url={good.imageUrl} />
+        <div className="relative top-[-18px] left-[9px] flex justify-start">
+          {good.isExclusive && (
+            <span className="inline-flex bg-[#18A286] p-2 text-xs text-white">
+              단독
+            </span>
+          )}
         </div>
+      </div>
+      <div className="flex flex-col justify-start p-1 text-left">
+        <span className="text-[11px]">{good.brandName}</span>
+        <span className="min-h-[40px] text-left text-sm font-bold line-clamp-2">
+          {good.goodsName}
+        </span>
         <div className="flex justify-between">
-          <span className="font-bold">999,999,999원</span>
-          <span className="text-[#FF0000]">34%</span>
+          <span className="font-bold">{`${getNumberWithComma(
+            good.price
+          )}원`}</span>
+          {good.isSale && (
+            <span className="text-[#FF0000]">{`${good.saleRate}%`}</span>
+          )}
         </div>
-        <div>999,999,999원</div>
+        {good.isSale && (
+          <span className="flex text-xs text-oldgray6 line-through">{`${getNumberWithComma(
+            good.normalPrice
+          )}원`}</span>
+        )}
       </div>
     </div>
   );
 };
 
-export default GoodCard;
+export default React.memo(GoodCard);
