@@ -57,7 +57,7 @@ export const HomeView = ({ isSearch, dataGoods, filterQuery, toggleSearch, updat
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Head>
-        <title>Create Next App</title>
+        <title>무신사 스토어</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopBar />
