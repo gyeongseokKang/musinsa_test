@@ -21,23 +21,25 @@ const FilterSearcher = ({ query, autoCompleteList, updateQuery }: FilterSearcher
 
   return (
     <>
-      <div className="flex items-center w-full p-2 border cursor-pointer">
-        <Icon url="/icon/search.png" width={24} height={24} className="cursor-pointer" />
-        <input
-          className="w-full outline-none"
-          type="text"
-          list="goods-options"
-          placeholder="상품명 검색"
-          autoComplete="on"
-          value={query}
-          onChange={handleChange}
-        />
+      <div className="w-full p-4 bg-gray1">
+        <div className="flex items-center p-2 bg-white border cursor-pointer">
+          <Icon url="/icon/search.png" width={24} height={24} className="cursor-pointer" />
+          <input
+            className="w-full outline-none"
+            type="text"
+            list="goods-options"
+            placeholder="상품명 검색"
+            autoComplete="on"
+            value={query}
+            onChange={handleChange}
+          />
+          <datalist id="goods-options">
+            {autoCompleteList.map((item) => (
+              <option value={item.name} label={`${item.brand} | ${item.code} `} />
+            ))}
+          </datalist>
+        </div>
       </div>
-      <datalist id="goods-options">
-        {autoCompleteList.map((item) => (
-          <option value={item.name} label={`${item.brand} | ${item.code} `} />
-        ))}
-      </datalist>
     </>
   );
 };

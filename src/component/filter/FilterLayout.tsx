@@ -24,7 +24,11 @@ const FilterLayout = () => {
   };
 
   return (
-    <div className="flex min-h-[50px] w-full items-center justify-between">
+    <div
+      className={`flex w-full items-center justify-between px-4 ${
+        filterList.some((item) => item.isApply) && "min-h-[50px]"
+      }`}
+    >
       <ChipGroup className="flex-nowrap">
         {filterList.map((item) => {
           if (!item.isApply) return null;
