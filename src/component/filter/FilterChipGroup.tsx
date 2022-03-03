@@ -5,7 +5,7 @@ import { filterState } from "../../store/FilterStore";
 import produce from "immer";
 import { useRecoilState } from "recoil";
 
-const FilterLayout = () => {
+const FilterChipGroup = () => {
   const [filterList, setFilterList] = useRecoilState(filterState);
 
   const clickFilterChip = (filter: string) => {
@@ -65,4 +65,4 @@ const FilterLayout = () => {
   );
 };
 
-export default FilterLayout;
+export default FilterChipGroup;

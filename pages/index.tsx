@@ -1,35 +1,33 @@
-import { Good, getDataGood } from "../src/service/data/getDataGood";
-import { useEffect, useState } from "react";
+import { getDataGood } from "../src/service/data/getDataGood";
+import { useEffect } from "react";
 import Head from "next/head";
 import type { NextPage } from "next";
 import TopBar from "../src/component/navigator/TopBar";
 import GoodsPage from "../src/component/page/GoodsPage";
+import { goodState } from "../src/store/GoodStore";
+import { useSetRecoilState } from "recoil";
 
 const Home: NextPage = () => {
-  const [dataGoods, setDataGoods] = useState<Good[] | undefined>();
+  const setGoodState = useSetRecoilState(goodState);
 
   useEffect(() => {
     const loadDataGood = async () => {
       const response = await getDataGood();
-      setDataGoods(response?.flat());
+      if (response) {
+        setGoodState(response.flat());
+      }
     };
     loadDataGood();
   }, []);
 
-  const HomeVAProp: HomeVAProp = {
-    dataGoods: dataGoods,
-  };
+  const HomeVAProp: HomeVAProp = {};
 
   return <HomeView {...HomeVAProp} />;
 };
 
-interface HomeVAProp {
-  dataGoods: Good[] | undefined;
-}
+interface HomeVAProp {}
 
-export const HomeView = ({ dataGoods }: HomeVAProp) => {
-  if (dataGoods === undefined) return <div>loading!!@</div>;
-
+export const HomeView = ({}: HomeVAProp) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Head>
@@ -38,7 +36,7 @@ export const HomeView = ({ dataGoods }: HomeVAProp) => {
       </Head>
       <TopBar />
       <main className="flex flex-col items-center justify-start flex-1 w-full h-full text-center">
-        <GoodsPage goods={dataGoods} />
+        <GoodsPage />
       </main>
     </div>
   );

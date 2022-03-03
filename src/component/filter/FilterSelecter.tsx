@@ -1,49 +1,57 @@
-import ChipGroup from "../chip/ChipGroup";
-import RoundChip from "../chip/RoundChip";
-import { filterState } from "../../store/FilterStore";
-import produce from "immer";
-import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-
-interface FilterSelecter {
-  filterList: string[];
-  clickFilterItem: (item: string) => void;
-}
+import { useState, useEffect } from "react";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { filterState, filterQueryState } from "../../store/FilterStore";
+import { goodState } from "../../store/GoodStore";
+import { getFilteredGoods } from "../../utils/getFilteredGoods";
+import SearchChip from "../chip/SearchChip";
+import FilterChipGroup from "./FilterChipGroup";
+import FilterSearcher from "./FilterSearcher";
+import FilterChipSelecter from "./FilterChipSelecter";
 
 const FilterSelecter = () => {
-  const defaultFilterList = ["세일상품", "단독상품", "품절포함"];
-  const [filterList, setfilterList] = useRecoilState(filterState);
-  useEffect(() => {
-    setfilterList(
-      defaultFilterList.map((item) => {
-        return { name: item, isApply: false };
-      })
-    );
-  }, []);
+  const goodList = useRecoilValue(goodState);
+  const filterList = useRecoilValue(filterState);
+  const [filterQuery, setFilterQuery] = useRecoilState(filterQueryState);
 
-  const clickFilterChip = (filter: string) => {
-    const nextState = produce(filterList, (draft) => {
-      const targetFilter = draft.find((item) => item.name === filter);
-      if (targetFilter) targetFilter.isApply = !targetFilter.isApply;
-    });
-    setfilterList(nextState);
+  const [filteredGoods, setFilteredGoods] = useState(goodList);
+  const [isSearch, setisSearch] = useState(false);
+
+  useEffect(() => {
+    setFilteredGoods(getFilteredGoods(goodList, filterList));
+  }, [filterList, goodList]);
+
+  const toggleSearch = () => {
+    setisSearch((preValue) => !preValue);
+  };
+
+  const updateFilterQuery = (query: string) => {
+    setFilterQuery(query);
   };
 
   return (
-    <div className="flex min-h-[55px] items-center justify-center">
-      <ChipGroup>
-        {filterList.map((item) => {
-          return (
-            <div
-              className="cursor-pointer"
-              onClick={() => clickFilterChip(item.name)}
-            >
-              <RoundChip text={item.name} isChecked={item.isApply} />
-            </div>
-          );
-        })}
-      </ChipGroup>
-    </div>
+    <>
+      <div className="flex items-center justify-center">
+        <div onClick={toggleSearch}>
+          <SearchChip isChecked={filterQuery.length > 0} isFocused={isSearch} />
+        </div>
+        <FilterChipSelecter />
+      </div>
+      {isSearch ? (
+        <FilterSearcher
+          query={filterQuery}
+          updateQuery={updateFilterQuery}
+          autoCompleteList={filteredGoods.map((item) => {
+            return {
+              name: item.goodsName,
+              brand: item.brandName,
+              code: item.goodsNo,
+            };
+          })}
+        />
+      ) : (
+        <FilterChipGroup />
+      )}
+    </>
   );
 };
 
