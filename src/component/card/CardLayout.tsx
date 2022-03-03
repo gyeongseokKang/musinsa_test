@@ -1,63 +1,64 @@
 import { useEffect, useState } from "react";
 import { Good } from "../../service/data/getDataGood";
-import InfiniteScroll from "../../utils/hook/InfiniteScroll";
 import { Icon } from "../icon/Icon";
-import CircularProgress from "../progress/CircularProgress";
+import InfiniteScroll from "../scroll/InfiniteScroll";
 import GoodCard from "./GoodCard";
 
 interface CardLayoutProp {
   cardList: Good[];
 }
 
-const NUMBERS_PER_PAGE = 4;
+const NUMBERS_PER_PAGE = 2;
 
 const CardLayout = ({ cardList }: CardLayoutProp) => {
   const [currentCardList, setCurrentCardList] = useState<Good[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
+  const [isFinish, setIsFinish] = useState(false);
 
-  const hasMoreData = currentCardList.length < cardList.length;
+  const initCardLayout = () => {
+    setPage(0);
+    setIsFinish(false);
+    setCurrentCardList([]);
+  };
 
-  const loadMoreNumbers = () => {
-    setPage((page) => page + 1);
-    setLoading(true);
+  const loadMoreCard = () => {
     setTimeout(() => {
-      const nextCardList = cardList.slice((page - 1) * NUMBERS_PER_PAGE, page * NUMBERS_PER_PAGE);
+      //무한 스크롤 확인을 위한 의도적인 딜레이
+      const nextCardList = cardList.slice(
+        page * NUMBERS_PER_PAGE,
+        (page + 1) * NUMBERS_PER_PAGE
+      );
+      setPage((page) => page + 1);
+      setIsFinish(cardList.length <= page * NUMBERS_PER_PAGE);
       setCurrentCardList((previous) => [...previous, ...nextCardList]);
-      setLoading(false);
-    }, 500);
+    }, 300);
   };
 
   useEffect(() => {
-    setPage(1);
-    setCurrentCardList([...cardList.slice(0, NUMBERS_PER_PAGE)]);
-    loadMoreNumbers();
+    initCardLayout();
+    loadMoreCard();
   }, [cardList]);
 
   return (
-    <>
-      <div className="flex flex-wrap justify-center ">
-        <InfiniteScroll hasMoreData={hasMoreData} isLoading={loading} onBottomHit={loadMoreNumbers} loadOnMount={true}>
-          <div className="flex flex-wrap justify-center ">
-            {currentCardList.length > 0 ? (
-              currentCardList.map((good) => {
-                return <GoodCard good={good} />;
-              })
-            ) : (
-              <div className="flex h-[60vh] flex-col items-center justify-center">
-                <Icon url="/icon/warning.png" width={80} height={80} className="pl-1 cursor-pointer" />
-                <span className="text-xs text-oldgray6">검색 결과 없음</span>
-              </div>
-            )}
-          </div>
-        </InfiniteScroll>
-        {loading && (
-          <div>
-            <CircularProgress />
+    <InfiniteScroll isFinish={isFinish} updateScroll={loadMoreCard}>
+      <div className="flex flex-wrap justify-center">
+        {currentCardList.length > 0 ? (
+          currentCardList.map((good) => {
+            return <GoodCard good={good} />;
+          })
+        ) : (
+          <div className="flex h-[60vh] flex-col items-center justify-center">
+            <Icon
+              url="/icon/warning.png"
+              width={80}
+              height={80}
+              className="pl-1 cursor-pointer"
+            />
+            <span className="text-xs text-oldgray6">검색 결과 없음</span>
           </div>
         )}
       </div>
-    </>
+    </InfiniteScroll>
   );
 };
 
