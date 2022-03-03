@@ -29,15 +29,17 @@ interface HomeVAProp {}
 
 export const HomeView = ({}: HomeVAProp) => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center w-full min-h-screen ">
       <Head>
         <title>무신사 스토어</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <TopBar />
-      <main className="flex flex-col items-center justify-start flex-1 w-full h-full text-center">
-        <GoodsPage />
-      </main>
+      <div className="m-2 flex w-screen  max-w-[390px] flex-col justify-center border border-gray-500">
+        <TopBar />
+        <main className="flex flex-col items-center justify-start flex-1 w-full h-full text-center">
+          <GoodsPage />
+        </main>
+      </div>
     </div>
   );
 };
