@@ -1,15 +1,15 @@
-import * as React from 'react'
+import * as React from "react";
 
-import Image from 'next/image'
+import Image from "next/image";
 
 export interface IconProp {
-  url: string
-  width?: number
-  height?: number
-  className?: string
-  priority?: boolean
+  url: string;
+  width?: number;
+  height?: number;
+  className?: string;
+  priority?: boolean;
 
-  onClick?: () => void
+  onClick?: () => void;
 }
 
 export const Icon = ({
@@ -17,7 +17,7 @@ export const Icon = ({
   width = 24,
   height = 24,
   className,
-  priority,
+  priority = true,
   onClick,
 }: IconProp) => {
   return (
@@ -25,10 +25,10 @@ export const Icon = ({
       className={className}
       onClick={onClick}
       style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        objectFit: 'contain',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        objectFit: "contain",
       }}
     >
       <Image
@@ -36,8 +36,8 @@ export const Icon = ({
         width={width}
         height={height}
         priority={priority}
-        layout={'fixed'}
+        layout={"fixed"}
       />
     </div>
-  )
-}
+  );
+};

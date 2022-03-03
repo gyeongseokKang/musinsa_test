@@ -15,7 +15,9 @@ const InfiniteScroll = ({
   children,
 }: InfiniteScrollProp) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const entry = useIntersectionObserver(containerRef, { threshold: 0.5 });
+  const entry = useIntersectionObserver(containerRef, {
+    threshold: 0,
+  });
 
   useEffect(() => {
     if (!isFinish) {

@@ -34,7 +34,11 @@ const FilterChipSelecter = () => {
       <ChipGroup>
         {filterList.map((item) => {
           return (
-            <div className="cursor-pointer" onClick={() => clickFilterChip(item.name)}>
+            <div
+              key={item.name}
+              className="cursor-pointer"
+              onClick={() => clickFilterChip(item.name)}
+            >
               <RoundChip text={item.name} isChecked={item.isApply} />
             </div>
           );

@@ -34,6 +34,7 @@ const FilterChipGroup = () => {
           if (!item.isApply) return null;
           return (
             <RectangleChip
+              key={item.name}
               text={item.name}
               leftItem={
                 <Icon
