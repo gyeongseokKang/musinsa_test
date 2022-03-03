@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { Good } from "../../service/data/getDataGood";
-import { filterState } from "../../store/FilterStore";
+import { filterQueryState, filterState } from "../../store/FilterStore";
 import { goodState } from "../../store/GoodStore";
 import { getFilteredGoods } from "../../utils/getFilteredGoods";
 import CardLayout from "../card/CardLayout";
@@ -12,11 +12,12 @@ interface GoodsPageProp {}
 const GoodsPage = ({}: GoodsPageProp) => {
   const goodList = useRecoilValue(goodState);
   const filterList = useRecoilValue(filterState);
+  const { itemIdList } = useRecoilValue(filterQueryState);
   const [filteredGoods, setFilteredGoods] = useState(goodList);
 
   useEffect(() => {
-    setFilteredGoods(getFilteredGoods(goodList, filterList));
-  }, [filterList, goodList]);
+    setFilteredGoods(getFilteredGoods(goodList, filterList, itemIdList));
+  }, [filterList, goodList, itemIdList]);
 
   const GoodsPageVAProp: GoodsPageVAProp = {
     filteredGoods: filteredGoods,

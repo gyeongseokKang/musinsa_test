@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { filterState, filterQueryState } from "../../store/FilterStore";
+import { filterState, filterQueryState, FilterQuery } from "../../store/FilterStore";
 import { goodState } from "../../store/GoodStore";
 import { getFilteredGoods } from "../../utils/getFilteredGoods";
 import SearchChip from "../chip/SearchChip";
@@ -24,21 +24,21 @@ const FilterSelecter = () => {
     setisSearch((preValue) => !preValue);
   };
 
-  const updateFilterQuery = (query: string) => {
-    setFilterQuery(query);
+  const updateFilterQuery = (filterQuery: FilterQuery) => {
+    setFilterQuery(filterQuery);
   };
 
   return (
     <>
       <div className="flex items-center justify-center">
         <div onClick={toggleSearch}>
-          <SearchChip isChecked={filterQuery.length > 0} isFocused={isSearch} />
+          <SearchChip isChecked={filterQuery.query.length > 0} isFocused={isSearch} />
         </div>
         <FilterChipSelecter />
       </div>
       {isSearch ? (
         <FilterSearcher
-          query={filterQuery}
+          filterQuery={filterQuery}
           updateQuery={updateFilterQuery}
           autoCompleteList={filteredGoods.map((item) => {
             return {

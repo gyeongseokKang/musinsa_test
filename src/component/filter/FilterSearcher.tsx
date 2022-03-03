@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useRef } from "react";
+import { FilterQuery } from "../../store/FilterStore";
+import useDebounce from "../../utils/hook/useDebounce";
 import { Icon } from "../icon/Icon";
 
 interface FilterSearcherProp {
-  query: string;
+  filterQuery: FilterQuery;
   autoCompleteList: autoCompleteItem[];
-  updateQuery: (query: string) => void;
+  updateQuery: (query: FilterQuery) => void;
 }
 
 interface autoCompleteItem {
@@ -13,12 +15,33 @@ interface autoCompleteItem {
   code: number;
 }
 
-const FilterSearcher = ({ query, autoCompleteList, updateQuery }: FilterSearcherProp) => {
+const FilterSearcher = ({ filterQuery, autoCompleteList, updateQuery }: FilterSearcherProp) => {
+  const dataListRef = useRef<HTMLDataListElement>(null);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateQuery(e.target.value);
-    console.log(e.target.value);
+    let itemIdList: number[] | undefined = undefined;
+    if (dataListRef && e.target.value.length > 0) {
+      itemIdList = getCurrentDataListOptions(dataListRef, e.target.value);
+    }
+    updateQuery({
+      query: e.target.value,
+      itemIdList: itemIdList,
+    });
   };
 
+  const getCurrentDataListOptions = (dataList: React.RefObject<any>, query: string): number[] => {
+    if (!dataList.current) return [];
+    const currentDataList = dataList.current.children;
+    let currentItemList: number[] = [];
+
+    for (let i = 0; i < currentDataList.length; i++) {
+      if (currentDataList[i].value.includes(query) || currentDataList[i].label.includes(query)) {
+        const goodId = currentDataList[i].label.split("|")[1].trim();
+        currentItemList.push(Number(goodId));
+      }
+    }
+
+    return currentItemList;
+  };
   return (
     <>
       <div className="w-full p-4 bg-gray1">
@@ -30,10 +53,10 @@ const FilterSearcher = ({ query, autoCompleteList, updateQuery }: FilterSearcher
             list="goods-options"
             placeholder="상품명 검색"
             autoComplete="on"
-            value={query}
+            value={filterQuery.query}
             onChange={handleChange}
           />
-          <datalist id="goods-options">
+          <datalist id="goods-options" ref={dataListRef}>
             {autoCompleteList.map((item) => (
               <option value={item.name} label={`${item.brand} | ${item.code} `} />
             ))}

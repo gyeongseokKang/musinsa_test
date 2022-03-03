@@ -1,16 +1,24 @@
-import { atom } from 'recoil'
+import { atom } from "recoil";
 
 export interface FilterItem {
-  name: string
-  isApply: boolean
+  name: string;
+  isApply: boolean;
+}
+
+export interface FilterQuery {
+  query: string;
+  itemIdList: number[] | undefined;
 }
 
 export const filterState = atom<FilterItem[]>({
-  key: 'filterState',
+  key: "filterState",
   default: [],
-})
+});
 
-export const filterQueryState = atom<string>({
-  key: 'filterQueryState',
-  default: '',
-})
+export const filterQueryState = atom<FilterQuery>({
+  key: "filterQueryState",
+  default: {
+    query: "",
+    itemIdList: undefined,
+  },
+});

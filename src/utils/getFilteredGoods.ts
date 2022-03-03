@@ -1,7 +1,7 @@
 import { Good } from "../service/data/getDataGood";
 import { FilterItem } from "../store/FilterStore";
 
-export const getFilteredGoods = (goods: Good[], filterList: FilterItem[]) => {
+export const getFilteredGoods = (goods: Good[], filterList: FilterItem[], itemIdList?: number[]) => {
   let filteredGoods = [...goods];
   filterList.forEach((filter) => {
     if (filter.isApply && filter.name === "세일상품") {
@@ -15,5 +15,9 @@ export const getFilteredGoods = (goods: Good[], filterList: FilterItem[]) => {
       filteredGoods = filteredGoods.filter((item) => !item.isSoldOut);
     }
   });
+
+  if (itemIdList) {
+    filteredGoods = filteredGoods.filter((item) => itemIdList.includes(item.goodsNo));
+  }
   return filteredGoods;
 };
