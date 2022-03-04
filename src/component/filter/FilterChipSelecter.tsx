@@ -1,5 +1,5 @@
 import ChipGroup from "../chip/ChipGroup";
-import RoundChip from "../chip/RoundChip";
+import RoundChip from "../chip/roundChip/RoundChip";
 import { filterState } from "../../store/FilterStore";
 import produce from "immer";
 import { useEffect } from "react";
