@@ -1,10 +1,11 @@
-import { getDataGood } from "../src/service/data/getDataGood";
-import { useEffect } from "react";
+import FilterSelecter from "../src/component/filter/FilterSelecter";
+import GoodsPage from "../src/component/page/GoodsPage";
 import Head from "next/head";
 import type { NextPage } from "next";
 import TopBar from "../src/component/navigator/TopBar";
-import GoodsPage from "../src/component/page/GoodsPage";
+import { getDataGood } from "../src/service/data/getDataGood";
 import { goodState } from "../src/store/GoodStore";
+import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 
 const Home: NextPage = () => {
@@ -35,7 +36,9 @@ export const HomeView = ({}: HomeVAProp) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="m-2 flex w-screen  max-w-[390px] flex-col justify-center border border-gray-500">
-        <TopBar />
+        <TopBar>
+          <FilterSelecter />
+        </TopBar>
         <main className="flex flex-col items-center justify-start flex-1 w-full h-full text-center">
           <GoodsPage />
         </main>
