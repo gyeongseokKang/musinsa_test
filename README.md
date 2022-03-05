@@ -9,9 +9,13 @@ yarn
 yarn dev
 ```
 
+// 스토리북 실행
+yarn storybook
+
 또는
 
 [Demo 보러가기](https://musinsa-test.vercel.app/)
+![무신사테스트_low](https://user-images.githubusercontent.com/61446585/156888033-d69ed671-6eef-46b6-8a60-f9b3968822d0.gif)
 
 ## 기술 스택, 기술 선정 이유
 
@@ -41,8 +45,13 @@ Next.js는 React 프레임워크로써, 무신사의 서비스 특징상, SEO, �
 그리고 recoil를 통한 직관적인 상태관리와 Redux, Mobx와 달리 React스러운 사용방법 등이 매우 유용하다고 판단했습니다.(또한 react와 같은 회사에서 만들었기에 기술의 통합성도 더 좋아질것이라 생각했습니다.)
 
 ### 프로젝트 디렉토리 구조
-구조는 크게 Page 와 Component의 2단계로 구성하였습니다. 그중 Page의 경우 VAC 패턴을 도입하여 컴포넌트의 복잡성을 줄이려고 하였습니다.
+구조는 크게 Page, Widget, Component의 3단계로 구성하였습니다.
+component는 아토믹 디자인 패턴에서 atom에 해당하는 기본 리액트 컴포넌트로, 스토리북의 테스트 대상입니다. 기본적인 디자인시스템의 구성요소입니다.
+widget은 component들의 조합으로 이루어진 것으로, 홀로 독립적인 기능을 수행하는 단위입니다.
+Page는 widget 또는 component들의 조합으로, 실제 프로젝트에서 view에 해당하는 사이즈의 컴포넌트 조합입니다. 여기선 GoodPage라는 하나의 페이지만 있습니다.
+또한 VAC 패턴을 도입하여 컴포넌트의 복잡성을 줄이려고 하였습니다.
 [참고자료 | VAC 패턴](https://all-dev-kang.tistory.com/entry/%EB%A6%AC%EC%95%A1%ED%8A%B8-VAC-%ED%8C%A8%ED%84%B4-%EC%A0%81%EC%9A%A9-%ED%9B%84%EA%B8%B0-%EB%B0%8F-%EC%9E%A5%EB%8B%A8%EC%A0%90)
+
 
 ### 무한스크롤 및 데이터불러오기
 무한스크롤의 경우 Intersection Observer API를 이용하여 hook를 만들어 사용했습니다.
