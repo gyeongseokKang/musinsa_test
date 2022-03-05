@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { Good } from "../../service/data/getDataGood";
 import { filterQueryState, filterState } from "../../store/FilterStore";
-import { goodState } from "../../store/GoodStore";
-import { getFilteredGoods } from "../../utils/getFilteredGoods";
+import { useEffect, useState } from "react";
+
 import CardLayout from "../card/CardLayout";
-import HorizontalDivider from "../divider/HorizontalDivider";
+import { Good } from "../../service/data/getDataGood";
+import HorizontalDivider from "../divider/horizontalDivider/HorizontalDivider";
+import { getFilteredGoods } from "../../utils/getFilteredGoods";
+import { goodState } from "../../store/GoodStore";
+import { useRecoilValue } from "recoil";
 
 interface GoodsPageProp {}
 
@@ -35,7 +36,7 @@ export const GoodsPageView = ({ filteredGoods }: GoodsPageVAProp) => {
 
   return (
     <>
-      <HorizontalDivider className="min-h-[10px] w-full bg-oldgray3" />
+      <HorizontalDivider />
       <CardLayout cardList={filteredGoods} />
     </>
   );
