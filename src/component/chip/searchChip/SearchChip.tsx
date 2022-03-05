@@ -1,5 +1,5 @@
+import { Icon } from "../../icon/Icon";
 import React from "react";
-import { Icon } from "../icon/Icon";
 
 interface SearchChipProp {
   isChecked?: boolean;
@@ -27,7 +27,12 @@ const SearchChip = ({ isChecked, isFocused }: SearchChipProp) => {
     >
       <div className={`${textColor} flex text-sm`}>
         검색
-        <Icon url="/icon/search.png" width={20} height={20} className="pl-1 cursor-pointer" />
+        <Icon
+          url="/icon/search.png"
+          width={20}
+          height={20}
+          className="pl-1 cursor-pointer"
+        />
       </div>
     </div>
   );

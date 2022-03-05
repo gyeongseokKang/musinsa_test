@@ -1,12 +1,17 @@
-import { useState, useEffect } from "react";
-import { useRecoilValue, useRecoilState } from "recoil";
-import { filterState, filterQueryState, FilterQuery } from "../../store/FilterStore";
-import { goodState } from "../../store/GoodStore";
-import { getFilteredGoods } from "../../utils/getFilteredGoods";
-import SearchChip from "../chip/SearchChip";
+import {
+  FilterQuery,
+  filterQueryState,
+  filterState,
+} from "../../store/FilterStore";
+import { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+
 import FilterChipGroup from "./FilterChipGroup";
-import FilterSearcher from "./FilterSearcher";
 import FilterChipSelecter from "./FilterChipSelecter";
+import FilterSearcher from "./FilterSearcher";
+import SearchChip from "../chip/searchChip/SearchChip";
+import { getFilteredGoods } from "../../utils/getFilteredGoods";
+import { goodState } from "../../store/GoodStore";
 
 const FilterSelecter = () => {
   const goodList = useRecoilValue(goodState);
@@ -32,7 +37,10 @@ const FilterSelecter = () => {
     <>
       <div className="flex items-center justify-center">
         <div onClick={toggleSearch}>
-          <SearchChip isChecked={filterQuery.query.length > 0} isFocused={isSearch} />
+          <SearchChip
+            isChecked={filterQuery.query.length > 0}
+            isFocused={isSearch}
+          />
         </div>
         <FilterChipSelecter />
       </div>
