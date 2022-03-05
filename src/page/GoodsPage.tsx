@@ -1,11 +1,11 @@
-import { filterQueryState, filterState } from "../../store/FilterStore";
+import { filterQueryState, filterState } from "../store/FilterStore";
 import { useEffect, useState } from "react";
 
-import CardLayout from "../card/CardLayout";
-import { Good } from "../../service/data/getDataGood";
-import HorizontalDivider from "../divider/horizontalDivider/HorizontalDivider";
-import { getFilteredGoods } from "../../utils/getFilteredGoods";
-import { goodState } from "../../store/GoodStore";
+import CardLayout from "../widget/layout/CardLayout";
+import { Good } from "../service/data/getDataGood";
+import HorizontalDivider from "../component/divider/horizontalDivider/HorizontalDivider";
+import { getFilteredGoods } from "../utils/getFilteredGoods";
+import { goodState } from "../store/GoodStore";
 import { useRecoilValue } from "recoil";
 
 interface GoodsPageProp {}

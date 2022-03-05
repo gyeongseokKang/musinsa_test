@@ -9,7 +9,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import FilterChipGroup from "./FilterChipGroup";
 import FilterChipSelecter from "./FilterChipSelecter";
 import FilterSearcher from "./FilterSearcher";
-import SearchChip from "../chip/searchChip/SearchChip";
+import SearchChip from "../../component/chip/searchChip/SearchChip";
 import { getFilteredGoods } from "../../utils/getFilteredGoods";
 import { goodState } from "../../store/GoodStore";
 

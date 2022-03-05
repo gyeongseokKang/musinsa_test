@@ -1,6 +1,6 @@
-import ChipGroup from "../chip/ChipGroup";
-import { Icon } from "../icon/Icon";
-import RectangleChip from "../chip/rectangleChip/RectangleChip";
+import ChipGroup from "../../component/chip/ChipGroup";
+import { Icon } from "../../component/icon/Icon";
+import RectangleChip from "../../component/chip/rectangleChip/RectangleChip";
 import { filterState } from "../../store/FilterStore";
 import produce from "immer";
 import { useRecoilState } from "recoil";

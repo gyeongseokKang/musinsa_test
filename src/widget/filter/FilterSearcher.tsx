@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
+
 import { FilterQuery } from "../../store/FilterStore";
-import useDebounce from "../../utils/hook/useDebounce";
-import { Icon } from "../icon/Icon";
+import { Icon } from "../../component/icon/Icon";
 
 interface FilterSearcherProp {
   filterQuery: FilterQuery;
@@ -15,7 +15,11 @@ interface autoCompleteItem {
   code: number;
 }
 
-const FilterSearcher = ({ filterQuery, autoCompleteList, updateQuery }: FilterSearcherProp) => {
+const FilterSearcher = ({
+  filterQuery,
+  autoCompleteList,
+  updateQuery,
+}: FilterSearcherProp) => {
   const dataListRef = useRef<HTMLDataListElement>(null);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let itemIdList: number[] | undefined = undefined;
@@ -28,13 +32,19 @@ const FilterSearcher = ({ filterQuery, autoCompleteList, updateQuery }: FilterSe
     });
   };
 
-  const getCurrentDataListOptions = (dataList: React.RefObject<any>, query: string): number[] => {
+  const getCurrentDataListOptions = (
+    dataList: React.RefObject<any>,
+    query: string
+  ): number[] => {
     if (!dataList.current) return [];
     const currentDataList = dataList.current.children;
     let currentItemList: number[] = [];
 
     for (let i = 0; i < currentDataList.length; i++) {
-      if (currentDataList[i].value.includes(query) || currentDataList[i].label.includes(query)) {
+      if (
+        currentDataList[i].value.includes(query) ||
+        currentDataList[i].label.includes(query)
+      ) {
         const goodId = currentDataList[i].label.split("|")[1].trim();
         currentItemList.push(Number(goodId));
       }
@@ -46,7 +56,12 @@ const FilterSearcher = ({ filterQuery, autoCompleteList, updateQuery }: FilterSe
     <>
       <div className="w-full p-4 bg-gray1">
         <div className="flex items-center p-2 bg-white border cursor-pointer">
-          <Icon url="/icon/search.png" width={24} height={24} className="cursor-pointer" />
+          <Icon
+            url="/icon/search.png"
+            width={24}
+            height={24}
+            className="cursor-pointer"
+          />
           <input
             className="w-full outline-none"
             type="text"
@@ -58,7 +73,10 @@ const FilterSearcher = ({ filterQuery, autoCompleteList, updateQuery }: FilterSe
           />
           <datalist id="goods-options" ref={dataListRef}>
             {autoCompleteList.map((item) => (
-              <option value={item.name} label={`${item.brand} | ${item.code} `} />
+              <option
+                value={item.name}
+                label={`${item.brand} | ${item.code} `}
+              />
             ))}
           </datalist>
         </div>

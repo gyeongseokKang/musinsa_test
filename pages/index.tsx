@@ -1,8 +1,8 @@
-import FilterSelecter from "../src/component/filter/FilterSelecter";
-import GoodsPage from "../src/component/page/GoodsPage";
+import FilterSelecter from "../src/widget/filter/FilterSelecter";
+import GoodsPage from "../src/page/GoodsPage";
 import Head from "next/head";
 import type { NextPage } from "next";
-import TopBar from "../src/component/navigator/TopBar";
+import TopBar from "../src/widget/navigator/TopBar";
 import { getDataGood } from "../src/service/data/getDataGood";
 import { goodState } from "../src/store/GoodStore";
 import { useEffect } from "react";
@@ -35,11 +35,11 @@ export const HomeView = ({}: HomeVAProp) => {
         <title>무신사 스토어</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="m-2 flex w-screen  max-w-[390px] flex-col justify-center border border-gray-500">
+      <div className="m-2 flex h-full w-screen  max-w-[390px] flex-col justify-center border border-gray-500">
         <TopBar>
           <FilterSelecter />
         </TopBar>
-        <main className="flex flex-col items-center justify-start flex-1 w-full h-full text-center">
+        <main className="flex flex-col items-center flex-1 w-full h-full text-center">
           <GoodsPage />
         </main>
       </div>
