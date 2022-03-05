@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import CircularProgress from "../progress/CircularProgress";
+import CircularProgress from "../progress/circularProgress/CircularProgress";
 import useIntersectionObserver from "../../utils/hook/useIntersectionObserver";
 
 interface InfiniteScrollProp {
