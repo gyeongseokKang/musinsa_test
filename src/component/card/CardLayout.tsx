@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+
 import { Good } from "../../service/data/getDataGood";
+import GoodCard from "./goodCard/GoodCard";
 import { Icon } from "../icon/Icon";
 import InfiniteScroll from "../scroll/InfiniteScroll";
-import GoodCard from "./GoodCard";
 
 interface CardLayoutProp {
   cardList: Good[];
