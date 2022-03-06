@@ -7,7 +7,10 @@ interface TopBarProp {
 
 const TopBar = ({ children }: TopBarProp) => {
   return (
-    <header className="sticky top-0 z-50 flex flex-col w-full bg-white">
+    <header
+      data-testid="topBar"
+      className="sticky top-0 z-50 flex flex-col w-full bg-white"
+    >
       <div className="flex min-h-[50px] w-full items-center justify-center">
         <Image
           className="cursor-pointer"
