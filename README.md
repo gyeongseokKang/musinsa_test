@@ -11,6 +11,8 @@ yarn dev
 // 스토리북 실행
 yarn storybook
 
+// 테스트 실행
+yarn test
 ```
 
 또는
@@ -19,13 +21,18 @@ yarn storybook
 
 ---
 
-사이드 동작 Gif
+사이드 동작.gif
 
 ![무신사테스트_low](https://user-images.githubusercontent.com/61446585/156888033-d69ed671-6eef-46b6-8a60-f9b3968822d0.gif)
 
-스토리북 png
+스토리북.png
 
 <img width="839" alt="image" src="https://user-images.githubusercontent.com/61446585/156888235-5c37e57a-d355-4f9d-a296-4f021f786615.png">
+
+테스트 실행.png
+
+<img width="452" alt="image" src="https://user-images.githubusercontent.com/61446585/156912677-a8cb5b9d-9827-425d-8a4b-489474be978a.png">
+
 
 ---
 
